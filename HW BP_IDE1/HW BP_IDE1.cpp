@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 
+
 void swap(int* a, int* b)
 {
 	int temp = *a;
@@ -10,9 +11,16 @@ void swap(int* a, int* b)
 	*b = temp;
 }
 
-void reverse(int* numbers, int size)
+void reverse_M(int* numbers, int size)
 {
-	for (int j = size-1, i = 0; i <= size-1; i++)
+	for (int j = size - 1, i = 0; i <= size - 1; i++)
+	{
+		swap(&numbers[i], &numbers[j]);
+	}
+}
+void reverse_N(int* numbers, int size)
+{
+	for (int i = 1, j = 0; i < size; i++, j++)
 	{
 		swap(&numbers[i], &numbers[j]);
 	}
@@ -24,13 +32,13 @@ int main(int argc, char** argv)
 
 	std::ifstream in("in.txt");
 
-	if (!in) 
+	if (!in)
 	{
-		std::cout << "Ошибка открытия файла!";
+		std::cout << "Ошибка открытия файла!" << std::endl;
 
-			return -1;
+		return -1;
 	}
-	
+
 	int sizeN;
 
 	in >> sizeN;
@@ -39,7 +47,7 @@ int main(int argc, char** argv)
 
 	for (int i = 0; i < sizeN; i++)
 
-	in >> N[i];
+		in >> N[i];
 
 	int sizeM;
 
@@ -49,19 +57,26 @@ int main(int argc, char** argv)
 
 	for (int i = 0; i < sizeM; i++)
 
-	in >> M[i];
-	
+		in >> M[i];
+
 	in.close();
 
-	reverse(M, sizeM); //замена значений в массиве M[]
+	reverse_M(M, sizeM); //замена значений индексов массива M[]
 
-	reverse(N, sizeN); //замена значений в массиве N[]
+	reverse_N(N, sizeN); //замена значений индексов массива N[]
 
 	std::ofstream out("out.txt");
 
+	if (!out)
+	{
+		std::cout << "Ошибка записи файла!";
+
+		return -1;
+	}
+
 	out << sizeM << std::endl;
 
-	for (int i = 0; i < sizeM; i++) 
+	for (int i = 0; i < sizeM; i++)
 	{
 		out << M[i] << " ";
 	}
