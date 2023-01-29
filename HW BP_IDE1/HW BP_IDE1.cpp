@@ -71,6 +71,14 @@ int main(int argc, char** argv)
 	{
 		std::cout << "Ошибка записи файла!";
 
+		delete[] M;
+
+		delete[] N;
+
+		M = nullptr;
+
+		N = nullptr;
+
 		return -1;
 	}
 
